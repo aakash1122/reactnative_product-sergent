@@ -13,7 +13,6 @@ import Styled from "styled-components";
 import Constants from "expo-constants";
 
 import CompanyCard from "../components/CompanyCard";
-import CheckProduct from "./CheckProduct";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -27,6 +26,8 @@ export default class HomeScreen extends React.Component {
 
   async componentDidMount() {
     this.getPermissionsAsync();
+    this.setState({ scanned: true });
+    this.props.navigation.navigate("Check", { data: 8992772485012 });
   }
 
   getPermissionsAsync = async () => {
@@ -34,8 +35,9 @@ export default class HomeScreen extends React.Component {
     this.setState({ hasCameraPermission: status === "granted" });
   };
 
-  handleBarCodeScanned = ({ type, data }) => {
-    this.setState({ scanned: true });
+  handleBarCodeScanned = async ({ type, data }) => {
+    // this.setState({ scanned: true });
+    // console.log(data);
     this.props.navigation.navigate("Check", { data: data, type: type });
   };
 
