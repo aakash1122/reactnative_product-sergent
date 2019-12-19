@@ -62,7 +62,7 @@ export default class WelcomeScreen extends React.Component {
     return (
       <TouchableNativeFeedback
         onPress={() => {
-          this.props.done(false);
+          this.props.done();
         }}
       >
         <View style={styles.buttonCircle} onPress>

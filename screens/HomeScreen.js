@@ -3,14 +3,14 @@ import {
   Text,
   View,
   StyleSheet,
-  Button,
   ScrollView,
-  Dimensions
+  Dimensions,
+  Button
 } from "react-native";
 import * as Permissions from "expo-permissions";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import Styled from "styled-components";
 import Constants from "expo-constants";
+import Styled from "styled-components";
 
 import CompanyCard from "../components/CompanyCard";
 
@@ -26,8 +26,6 @@ export default class HomeScreen extends React.Component {
 
   async componentDidMount() {
     this.getPermissionsAsync();
-    this.setState({ scanned: true });
-    this.props.navigation.navigate("Check", { data: 8992772485012 });
   }
 
   getPermissionsAsync = async () => {
@@ -36,8 +34,7 @@ export default class HomeScreen extends React.Component {
   };
 
   handleBarCodeScanned = async ({ type, data }) => {
-    // this.setState({ scanned: true });
-    // console.log(data);
+    this.setState({ scanned: true });
     this.props.navigation.navigate("Check", { data: data, type: type });
   };
 
@@ -48,7 +45,16 @@ export default class HomeScreen extends React.Component {
       return <Text>Requesting for camera permission</Text>;
     }
     if (hasCameraPermission === false) {
-      return <Text>No access to camera</Text>;
+      return (
+        <View>
+          <Text>No access to camera</Text>;
+          <Button
+            mode="outlined"
+            color="#ff6b81"
+            onPress={() => this.getPermissionsAsync()}
+          ></Button>
+        </View>
+      );
     }
 
     return (

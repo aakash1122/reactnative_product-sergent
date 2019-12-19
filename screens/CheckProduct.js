@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from "react-native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 import axios from "axios";
 import Styled from "styled-components";
-import { LinearGradient } from "expo-linear-gradient";
+import { Button } from "react-native-paper";
 
 export default class CheckProduct extends Component {
   static navigationOptions = {
@@ -20,7 +20,6 @@ export default class CheckProduct extends Component {
   }
 
   searchFromApi = data => {
-    console.log("cam data: ", data);
     axios
       .post("https://product-sergeant-api.herokuapp.com/products/find", {
         upc: data
@@ -50,22 +49,73 @@ export default class CheckProduct extends Component {
       );
     }
     const { productInfo } = this.state;
-    console.log(productInfo);
+    if (this.state.productInfo) {
+      return (
+        <Container>
+          <Text style={{ padding: 10, textAlign: "left" }}>
+            Search Result :
+          </Text>
+          <ViewCard>
+            <View>
+              <Text style={[styles.Btext]}>{productInfo.name}</Text>
+              <Text>Brand: {productInfo.brand}</Text>
+              <Text>Origin: {productInfo.origin}</Text>
+              <Text>Vendor: {productInfo.vendor}</Text>
+              <Text>
+                exp: {productInfo.expiry_date ? productInfo.expiry_date : "N/A"}
+              </Text>
+              {productInfo.scanned ? (
+                <View
+                  style={{
+                    padding: 5,
+                    backgroundColor: "#ff7979",
+                    marginTop: 10
+                  }}
+                >
+                  <Text style={{ color: "#fff", textAlign: "center" }}>
+                    The product was scanned before
+                  </Text>
+                  {alert("We do not recommend you to buy this product!")}
+                </View>
+              ) : (
+                <View
+                  style={{
+                    padding: 5,
+                    backgroundColor: "green",
+                    marginTop: 10
+                  }}
+                >
+                  <Text style={{ color: "#fff", textAlign: "center" }}>
+                    The product is Authentic
+                  </Text>
+                </View>
+              )}
+            </View>
+            <Button
+              mode="outlined"
+              color="#ff6b81"
+              onPress={() => this.props.navigation.goBack()}
+            >
+              Go Back
+            </Button>
+          </ViewCard>
+        </Container>
+      );
+    }
     return (
-      <Container>
-        <ViewCard>
-          {/* <Text>{productInfo.name}</Text>
-        <Text>{productInfo.brand}</Text>
-        <Text>{productInfo.origin}</Text>
-        <Text>{productInfo.vendor}</Text>
-        <Text>exp: {productInfo.expiry_date}</Text> */}
-          <Text style={[styles.Btext]}>Apple juice</Text>
-          <Text>Nineta</Text>
-          <Text>Bangladesh</Text>
-          <Text>akiz group</Text>
-          <Text>exp: 12/12/12</Text>
-        </ViewCard>
-      </Container>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 5 }}>
+          Product Not Found
+        </Text>
+        <Button
+          mode="contained"
+          color="#ff6b81"
+          dark={true}
+          onPress={() => this.props.navigation.goBack()}
+        >
+          search Again
+        </Button>
+      </View>
     );
   }
 }
@@ -81,7 +131,7 @@ const Container = Styled.View`
 `;
 
 const ViewCard = Styled.View`
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: 70%;
   height: 50%;

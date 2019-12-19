@@ -4,7 +4,7 @@ import { View, Text } from "react-native";
 const SearchedScreen = () => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Search History</Text>
+      <Text>Work in Progress</Text>
     </View>
   );
 };
