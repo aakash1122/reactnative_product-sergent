@@ -20,10 +20,10 @@ const CompanyCard = () => {
 };
 
 const Avatar = Styled.View`
-  width: 80px;
-  height:80px;
+  width: 60px;
+  height:60px;
   margin: 7px;
-  border-radius: 40px;
+  border-radius: 30px;
   shadow-color: grey;
   shadow-opacity: 0.48;
   shadow-radius: 11.95;

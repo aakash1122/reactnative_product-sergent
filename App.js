@@ -5,17 +5,20 @@ import WelcomeScreen from "./screens/welcomeScreen/WelcomeScreen";
 import TabNavigator from "./navigator/TabNavigator";
 
 export default function App() {
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(null);
 
-  useEffect(
-    () => async () => {
-      const show = await AsyncStorage.getItem("firstTime");
-      if (show !== null) {
-        setShowWelcome(false);
-      }
-    },
-    showWelcome
-  );
+  useEffect(() => {
+    checkFirstTime();
+  });
+
+  const checkFirstTime = async () => {
+    const show = await AsyncStorage.getItem("firstTime");
+    if (show) {
+      setShowWelcome(false);
+    } else {
+      setShowWelcome(true);
+    }
+  };
 
   const setFirstTime = async () => {
     try {
@@ -26,5 +29,11 @@ export default function App() {
     }
   };
 
-  return showWelcome ? <WelcomeScreen done={setFirstTime} /> : <TabNavigator />;
+  if (showWelcome === false) {
+    return <TabNavigator />;
+  } else if (showWelcome === null) {
+    return null;
+  } else {
+    return <WelcomeScreen done={setFirstTime} />;
+  }
 }

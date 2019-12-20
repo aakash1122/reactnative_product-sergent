@@ -123,22 +123,23 @@ const ScannereWrapper = Styled.View`
 const Styles = StyleSheet.create({
   CompanyWrapper: {
     flex: 2,
-    paddingTop: 15,
+    paddingTop: 10,
     alignSelf: "stretch",
     justifyContent: "center"
   },
   ScannereWrapper: {
-    flex: 3,
+    flex: 4,
     alignSelf: "stretch",
-    backgroundColor: "red"
+    backgroundColor: "red",
+    width: "100%"
   },
   rc: {
     textAlign: "left",
-    fontSize: 16,
+    fontSize: 13,
     fontWeight: "bold",
     marginBottom: 9,
     paddingLeft: 10,
     alignSelf: "stretch",
-    color: "#2c3e50"
+    color: "#34495e"
   }
 });

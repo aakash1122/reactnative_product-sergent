@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const searchFromApi = async param => {
-  console.log(param);
   try {
     const data = await axios.post(
       "https://product-sergeant-api.herokuapp.com/products/find",

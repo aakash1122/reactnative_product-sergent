@@ -5,6 +5,8 @@ import axios from "axios";
 import Styled from "styled-components";
 import { Button } from "react-native-paper";
 
+import { saveSearchResultInStorage } from "../utils/storage";
+
 export default class CheckProduct extends Component {
   static navigationOptions = {
     title: "Scan Result"
@@ -30,6 +32,7 @@ export default class CheckProduct extends Component {
           productInfo: data.data.product,
           loading: false
         });
+        saveSearchResultInStorage(data.data.product);
       })
       .catch(err => console.log(err));
   };
