@@ -22,6 +22,8 @@ const SearchedScreen = () => {
       if (data) {
         setSearchedData(data);
         setLoading(false);
+      }else{
+        setLoading(false)
       }
     })();
   }, []);
@@ -114,3 +116,5 @@ const styles = StyleSheet.create({
 });
 
 export default SearchedScreen;
+
+// update logic
